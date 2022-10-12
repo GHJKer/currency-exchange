@@ -99,7 +99,7 @@ function changeCurrencies() {
       <div>
         <p>Введите сумму и выберите валюту:</p>
         <div :class="$style['input-block']">
-          <InputBase :width="50" @inputValue="assignInput" />
+          <InputBase :width="50" :type="'number'" @inputValue="assignInput" />
           <SelectBase
             ref="selectRefTop"
             :options="options"

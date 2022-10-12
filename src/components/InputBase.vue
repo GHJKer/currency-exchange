@@ -3,6 +3,7 @@
     <input
       v-model="inputValue"
       @input="emit('inputValue', inputValue)"
+      :type="type"
       :style="{ width: props.width + 'px' }"
     />
   </div>
@@ -15,10 +16,20 @@ const props = defineProps({
     type: Number,
     required: false,
   },
+  type: {
+    type: String,
+    required: false,
+  },
 });
 
 const inputValue = ref("");
 
 const emit = defineEmits(["inputValue"]);
 </script>
-<style module></style>
+<style module>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>
