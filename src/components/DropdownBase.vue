@@ -1,6 +1,6 @@
 <template>
   <div :class="$style['main-container']">
-    <InputBase @inputValue="mySearch" />
+    <InputBase @inputValue="mySearch" :placeholder="'Доллар, евро, иены ...'" />
     <SelectBase
       :options="currenciesFiltered.length ? currenciesFiltered : currencies"
     />
@@ -48,6 +48,7 @@ function mySearch(inputData: string) {
 <style module>
 .main-container {
   display: flex;
+  justify-content: center;
   gap: 20px;
 }
 </style>

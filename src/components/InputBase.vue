@@ -3,6 +3,7 @@
     <input
       v-model="inputValue"
       @input="emit('inputValue', inputValue)"
+      :placeholder="placeholder"
       :type="type"
       :style="{ width: props.width + 'px' }"
     />
@@ -14,6 +15,10 @@ import { ref } from "vue";
 const props = defineProps({
   width: {
     type: Number,
+    required: false,
+  },
+  placeholder: {
+    type: String,
     required: false,
   },
   type: {
