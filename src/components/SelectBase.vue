@@ -48,4 +48,5 @@ const selectedItem: Ref<SelectOptions> = ref({
 });
 
 const emit = defineEmits(["selectedItem"]);
+defineExpose({ selectedItem });
 </script>

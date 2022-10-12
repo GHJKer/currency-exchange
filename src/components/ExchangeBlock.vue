@@ -4,6 +4,9 @@ import SelectBase from "@/components/SelectBase.vue";
 import InputBase from "@/components/InputBase.vue";
 
 import { SelectOptions } from "@/types/general";
+import { useStore } from "@/store/useStore";
+
+const store = useStore();
 
 const props = defineProps({
   options: {
@@ -34,10 +37,12 @@ const botItem: Ref<SelectOptions> = ref({
 
 const result: Ref<number> = ref(0);
 const InputVal: Ref<number> = ref(0);
+const selectRefTop = ref();
+const selectRefBot = ref();
 
 function assignInput(inputData: number) {
   InputVal.value = inputData;
-  if (botItem.value.Value & topItem.value.Value) countCurrency();
+  countCurrency();
 }
 
 function assignTop(selectData: SelectOptions) {
@@ -59,7 +64,7 @@ const currencyForRuble = computed(() => {
 
 function countCurrency() {
   let countVal;
-  if (topItem.value && botItem.value && InputVal.value) {
+  if (topItem.value.Value && botItem.value.Value && InputVal.value) {
     countVal =
       (topItem.value.Value / topItem.value.Nominal) *
       Number(currencyForRuble.value) *
@@ -79,8 +84,11 @@ function changeCurrencies() {
     Value: 0,
   });
   cnahgeItem.value = topItem.value;
+  selectRefBot.value.selectedItem = cnahgeItem.value;
+  selectRefTop.value.selectedItem = botItem.value;
   topItem.value = botItem.value;
   botItem.value = cnahgeItem.value;
+
   countCurrency();
 }
 </script>
@@ -92,7 +100,12 @@ function changeCurrencies() {
         <p>Введите сумму и выберите валюту:</p>
         <div :class="$style['input-block']">
           <InputBase :width="50" @inputValue="assignInput" />
-          <SelectBase :options="options" @selectedItem="assignTop" />
+          <SelectBase
+            ref="selectRefTop"
+            :options="options"
+            :topOrBot="'top'"
+            @selectedItem="assignTop"
+          />
           {{ topItem.Name }}
         </div>
       </div>
@@ -103,7 +116,12 @@ function changeCurrencies() {
         <p>Конечная валюта:</p>
         <div :class="$style['aim-block']">
           <p>{{ result }}</p>
-          <SelectBase :options="options" @selectedItem="assignBot" />
+          <SelectBase
+            ref="selectRefBot"
+            :options="options"
+            :topOrBot="'bot'"
+            @selectedItem="assignBot"
+          />
           {{ botItem.Name }}
         </div>
       </div>
