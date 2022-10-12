@@ -37,6 +37,7 @@ const InputVal: Ref<number> = ref(0);
 
 function assignInput(inputData: number) {
   InputVal.value = inputData;
+  if (botItem.value.Value & topItem.value.Value) countCurrency();
 }
 
 function assignTop(selectData: SelectOptions) {
@@ -58,11 +59,29 @@ const currencyForRuble = computed(() => {
 
 function countCurrency() {
   let countVal;
-  countVal =
-    (topItem.value.Value / topItem.value.Nominal) *
-    Number(currencyForRuble.value) *
-    InputVal.value;
-  return (result.value = Number(countVal.toFixed(3)));
+  if (topItem.value && botItem.value && InputVal.value) {
+    countVal =
+      (topItem.value.Value / topItem.value.Nominal) *
+      Number(currencyForRuble.value) *
+      InputVal.value;
+    return (result.value = Number(countVal.toFixed(3)));
+  }
+}
+
+function changeCurrencies() {
+  let cnahgeItem: Ref<SelectOptions> = ref({
+    CharCode: "",
+    ID: "",
+    Name: "",
+    Nominal: 0,
+    NumCode: 0,
+    Previous: 0,
+    Value: 0,
+  });
+  cnahgeItem.value = topItem.value;
+  topItem.value = botItem.value;
+  botItem.value = cnahgeItem.value;
+  countCurrency();
 }
 </script>
 <template>
@@ -76,6 +95,9 @@ function countCurrency() {
           <SelectBase :options="options" @selectedItem="assignTop" />
           {{ topItem.Name }}
         </div>
+      </div>
+      <div :class="$style.arrows" @click="changeCurrencies">
+        &#8593; &#8595;
       </div>
       <div>
         <p>Конечная валюта:</p>
@@ -92,6 +114,7 @@ function countCurrency() {
 .exchange-block {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 .input-block,
@@ -100,5 +123,13 @@ function countCurrency() {
   gap: 15px;
   justify-content: center;
   align-items: center;
+  margin-bottom: 10px;
+}
+
+.arrows {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  cursor: pointer;
 }
 </style>
