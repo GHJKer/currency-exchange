@@ -1,22 +1,22 @@
 import { defineStore } from "pinia";
-import { currencyData, SelectOptions } from "@/types/general";
+import { CurrencyData, SelectOptions } from "@/types/general";
 
 interface State {
-  currencyData: currencyData | null;
-  currentCurrency: SelectOptions | null;
+  CurrencyData: CurrencyData | null;
+  СurrentCurrency: SelectOptions | null;
 }
 
 export const useStore = defineStore("store", {
   state: (): State => ({
-    currencyData: null,
-    currentCurrency: null,
+    CurrencyData: null,
+    СurrentCurrency: null,
   }),
   actions: {
-    getData(NewData: currencyData) {
-      this.currencyData = NewData;
+    getData(NewData: CurrencyData) {
+      this.CurrencyData = NewData;
     },
-    getCurrentCurrency(newCurrency: SelectOptions) {
-      this.currentCurrency = newCurrency;
+    getСurrentCurrency(newCurrency: SelectOptions) {
+      this.СurrentCurrency = newCurrency;
     },
   },
 });

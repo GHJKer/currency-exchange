@@ -12,7 +12,7 @@ interface Valute {
   Value: number;
 }
 
-export interface currencyData {
+export interface CurrencyData {
   Date: string;
   PreviousDate: string;
   PreviousURL: string;
