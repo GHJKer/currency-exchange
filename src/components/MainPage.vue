@@ -49,9 +49,6 @@ onMounted(async () => {
       </h3>
     </div>
     <div v-if="switchVar">
-      <!-- <p>Введите название валюты:</p> -->
-      <!-- <DropdownBase :options="currencies" />
-      <CurrencyBlock /> -->
       <CurrencyTable :options="currencies" />
     </div>
     <ExchangeBlock v-else :options="currencies" />

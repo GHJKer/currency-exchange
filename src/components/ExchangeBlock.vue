@@ -11,26 +11,6 @@ interface Props {
 
 const props = defineProps<Props>();
 
-// const topItem: Ref<SelectOptions> = ref({
-//   CharCode: "",
-//   ID: "",
-//   Name: "",
-//   Nominal: 0,
-//   NumCode: 0,
-//   Previous: 0,
-//   Value: 0,
-// });
-
-// const botItem: Ref<SelectOptions> = ref({
-//   CharCode: "",
-//   ID: "",
-//   Name: "",
-//   Nominal: 0,
-//   NumCode: 0,
-//   Previous: 0,
-//   Value: 0,
-// });
-
 const topItem: Ref<SelectOptions> = ref(props.options[13]);
 
 const botItem: Ref<SelectOptions> = ref(props.options[14]);
