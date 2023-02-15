@@ -23,4 +23,13 @@ export default defineComponent({
   color: #2c3e50;
   margin-top: 60px;
 }
+
+ul,
+li {
+  list-style: none;
+}
+
+ul {
+  padding-inline-start: 0;
+}
 </style>

@@ -4,21 +4,21 @@ import { useStore } from "@/store/useStore";
 
 const store = useStore();
 
-const selectBaseItem = computed(() => store.currentCurrency);
+const selectBaseItem = computed(() => store.СurrentCurrency);
 
 const currencyForRuble = computed(() => {
-  if (!store.currentCurrency?.Nominal || !store.currentCurrency?.Value) {
+  if (!store.СurrentCurrency?.Nominal || !store.СurrentCurrency?.Value) {
     return 0;
   }
-  let fixedNum = store.currentCurrency.Nominal / store.currentCurrency.Value;
+  let fixedNum = store.СurrentCurrency.Nominal / store.СurrentCurrency.Value;
   return fixedNum.toFixed(3);
 });
 
 const currencyDifference = computed(() => {
-  if (!store.currentCurrency?.Previous || !store.currentCurrency?.Value) {
+  if (!store.СurrentCurrency?.Previous || !store.СurrentCurrency?.Value) {
     return 0;
   }
-  let difference = store.currentCurrency.Value - store.currentCurrency.Previous;
+  let difference = store.СurrentCurrency.Value - store.СurrentCurrency.Previous;
   return difference.toFixed(3);
 });
 </script>

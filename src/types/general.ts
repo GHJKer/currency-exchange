@@ -12,7 +12,7 @@ interface Valute {
   Value: number;
 }
 
-export interface CurrencyData {
+export interface ICurrencyData {
   Date: string;
   PreviousDate: string;
   PreviousURL: string;
@@ -20,7 +20,7 @@ export interface CurrencyData {
   Valute: Currency;
 }
 
-export type SelectOptions = {
+export interface SelectOptions {
   CharCode: string;
   ID: string;
   Name: string;
@@ -28,4 +28,4 @@ export type SelectOptions = {
   NumCode: number;
   Previous: number;
   Value: number;
-};
+}

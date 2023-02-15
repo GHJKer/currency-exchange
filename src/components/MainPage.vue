@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import DropdownBase from "@/components/DropdownBase.vue";
-import CurrencyBlock from "@/components/CurrencyBlock.vue";
 import ExchangeBlock from "@/components/ExchangeBlock.vue";
+import CurrencyTable from "@/components/CurrencyTable.vue";
 
 import { onMounted, ref, Ref } from "vue";
 import { currencyRequest } from "@/use/useRequest";
@@ -11,14 +10,19 @@ import { useStore } from "@/store/useStore";
 const store = useStore();
 
 const currencies: Ref<SelectOptions[]> = ref([]);
-
 const switchVar = ref(true);
 
 const getCurrencies = async () => {
   const result = await currencyRequest();
+
   currencies.value = Object.entries(result.Valute).map(
     (item) => item[1]
   ) as SelectOptions[];
+
+  for (let i = 0; i < currencies.value.length; i++) {
+    currencies.value[i].Previous =
+      currencies.value[i].Value - currencies.value[i].Previous;
+  }
 
   store.getData(result);
 };
@@ -45,9 +49,10 @@ onMounted(async () => {
       </h3>
     </div>
     <div v-if="switchVar">
-      <p>Выберите валютную пару:</p>
-      <DropdownBase :options="currencies" />
-      <CurrencyBlock />
+      <!-- <p>Введите название валюты:</p> -->
+      <!-- <DropdownBase :options="currencies" />
+      <CurrencyBlock /> -->
+      <CurrencyTable :options="currencies" />
     </div>
     <ExchangeBlock v-else :options="currencies" />
   </div>
@@ -58,7 +63,7 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 30%;
+  width: 47%;
   margin-left: auto;
   margin-right: auto;
   padding: 10px;
@@ -72,12 +77,17 @@ onMounted(async () => {
 }
 
 .switcher-item {
-  padding: 2px;
+  padding: 2px 9px;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.switcher-item:hover {
+  background-color: #fac77b42;
 }
 
 .chosen {
-  background-color: #ff9a0042;
+  background-color: #ff99005c;
 }
 </style>

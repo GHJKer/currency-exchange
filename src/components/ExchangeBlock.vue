@@ -1,39 +1,39 @@
 <script lang="ts" setup>
-import { PropType, ref, Ref, computed } from "vue";
+import { ref, Ref, computed } from "vue";
 import SelectBase from "@/components/SelectBase.vue";
 import InputBase from "@/components/InputBase.vue";
 
 import { SelectOptions } from "@/types/general";
-import { useStore } from "@/store/useStore";
 
-const store = useStore();
+interface Props {
+  options: Array<SelectOptions>;
+}
 
-const props = defineProps({
-  options: {
-    type: Array as PropType<Array<SelectOptions>>,
-    required: true,
-  },
-});
+const props = defineProps<Props>();
 
-const topItem: Ref<SelectOptions> = ref({
-  CharCode: "",
-  ID: "",
-  Name: "",
-  Nominal: 0,
-  NumCode: 0,
-  Previous: 0,
-  Value: 0,
-});
+// const topItem: Ref<SelectOptions> = ref({
+//   CharCode: "",
+//   ID: "",
+//   Name: "",
+//   Nominal: 0,
+//   NumCode: 0,
+//   Previous: 0,
+//   Value: 0,
+// });
 
-const botItem: Ref<SelectOptions> = ref({
-  CharCode: "",
-  ID: "",
-  Name: "",
-  Nominal: 0,
-  NumCode: 0,
-  Previous: 0,
-  Value: 0,
-});
+// const botItem: Ref<SelectOptions> = ref({
+//   CharCode: "",
+//   ID: "",
+//   Name: "",
+//   Nominal: 0,
+//   NumCode: 0,
+//   Previous: 0,
+//   Value: 0,
+// });
+
+const topItem: Ref<SelectOptions> = ref(props.options[13]);
+
+const botItem: Ref<SelectOptions> = ref(props.options[14]);
 
 const result: Ref<number> = ref(0);
 const InputVal: Ref<number> = ref(0);
@@ -99,11 +99,16 @@ function changeCurrencies() {
       <div>
         <p>Введите сумму и выберите валюту:</p>
         <div :class="$style['input-block']">
-          <InputBase :width="50" :type="'number'" @inputValue="assignInput" />
+          <InputBase
+            :width="50"
+            :type="'number'"
+            v-model="InputVal"
+            @inputValue="assignInput"
+          />
           <SelectBase
             ref="selectRefTop"
             :options="options"
-            :topOrBot="'top'"
+            :topSelect="true"
             @selectedItem="assignTop"
           />
           {{ topItem.Name }}
@@ -119,7 +124,7 @@ function changeCurrencies() {
           <SelectBase
             ref="selectRefBot"
             :options="options"
-            :topOrBot="'bot'"
+            :topSelect="false"
             @selectedItem="assignBot"
           />
           {{ botItem.Name }}
@@ -149,5 +154,15 @@ function changeCurrencies() {
   justify-content: center;
   gap: 20px;
   cursor: pointer;
+  background-color: rgb(255, 231, 197);
+  transition: background-color 0.2s;
+  width: 35px;
+  align-self: center;
+  padding: 3px 5px;
+  border-radius: 10px;
+}
+
+.arrows:hover {
+  background-color: rgb(248, 201, 138);
 }
 </style>

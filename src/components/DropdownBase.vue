@@ -8,17 +8,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, Ref, PropType, computed } from "vue";
+import { ref, Ref, computed } from "vue";
 import SelectBase from "@/components/SelectBase.vue";
 import InputBase from "@/components/InputBase.vue";
 import { SelectOptions } from "@/types/general";
 
-const props = defineProps({
-  options: {
-    type: Array as PropType<Array<SelectOptions>>,
-    required: true,
-  },
-});
+interface Props {
+  options: Array<SelectOptions>;
+}
+
+const props = defineProps<Props>();
 
 const currenciesFiltered: Ref<SelectOptions[]> = ref([]);
 

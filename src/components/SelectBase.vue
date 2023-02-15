@@ -2,7 +2,7 @@
   <select
     v-model="selectedItem"
     @change="
-      emit('selectedItem', selectedItem), store.getCurrentCurrency(selectedItem)
+      emit('selectedItem', selectedItem), store.getСurrentCurrency(selectedItem)
     "
   >
     <option
@@ -24,28 +24,22 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, Ref, PropType } from "vue";
+import { ref, Ref } from "vue";
 import { SelectOptions } from "@/types/general";
 import { useStore } from "@/store/useStore";
 
-const props = defineProps({
-  options: {
-    type: Array as PropType<Array<SelectOptions>>,
-    required: true,
-  },
-});
+interface Props {
+  options: Array<SelectOptions>;
+  topSelect: boolean;
+}
+
+const props = defineProps<Props>();
 
 const store = useStore();
 
-const selectedItem: Ref<SelectOptions> = ref({
-  CharCode: "",
-  ID: "",
-  Name: "",
-  Nominal: 0,
-  NumCode: 0,
-  Previous: 0,
-  Value: 0,
-});
+const selectedItem: Ref<SelectOptions> = ref(
+  props.topSelect ? props.options[13] : props.options[14]
+);
 
 const emit = defineEmits(["selectedItem"]);
 defineExpose({ selectedItem });
