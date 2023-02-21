@@ -28,7 +28,7 @@ const getCurrencies = async () => {
 };
 
 onMounted(async () => {
-  await getCurrencies();
+  await getCurrencies().catch(alert);
 });
 </script>
 
@@ -60,7 +60,7 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 47%;
+  width: 35%;
   margin-left: auto;
   margin-right: auto;
   padding: 10px;
